@@ -2,7 +2,6 @@ package http
 
 import (
 	"crypto/tls"
-	"crypto/x509"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -10,17 +9,17 @@ import (
 )
 
 func TestHttp(t *testing.T) {
-	caCert, err := ioutil.ReadFile("/opt/server/oss-manager/conf/manager.crt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	caCertPool := x509.NewCertPool()
-	caCertPool.AppendCertsFromPEM(caCert)
+	//caCert, err := ioutil.ReadFile("/opt/server/oss-manager/conf/manager.crt")
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//caCertPool := x509.NewCertPool()
+	//caCertPool.AppendCertsFromPEM(caCert)
 
 	client := &http.Client{
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
-				RootCAs: caCertPool,
+				//RootCAs: caCertPool,
 			},
 		},
 	}
@@ -37,4 +36,5 @@ func TestHttp(t *testing.T) {
 	}
 	html.Body.Close()
 	log.Println(string(website))
+	client.Get("http://www.jd.com")
 }
